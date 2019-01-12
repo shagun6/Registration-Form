@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>Forms</title>
+</head>
+<body bgcolor="yellow">
+<h1 style="text-align:center;"> Registration Form</h1>
+
+<script language="Javascript">
+function myfun()
+{
+var a=document.getElementById("username").value;
+var b=document.getElementById("password").value;
+var c=document.getElementById("number").value;
+var d=document.getElementById("male").checked;
+var f=document.getElementById("female").checked;
+var i;
+var e=document.getElementById("country").value;
+var g=document.getElementById("B.tech").checked;
+var h=document.getElementById("Diploma").checked;
+var i=document.getElementById("MBA").checked;
+if(a=="")
+{
+document.getElementById("message").innerHTML="**Enter Username";
+return false;
+}
+if((a.length<3||a.length>20))
+{
+document.getElementById("message").innerHTML="**Length should be more than 3 and less than 20 characters";
+return false;
+}
+if(b=="")
+{
+document.getElementById("mess").innerHTML="**Enter Password";
+return false;
+}
+if((b.length<3||b.length>20))
+{
+document.getElementById("mess").innerHTML="**Length should be more than 3 and less than 20 characters";
+return false;
+}
+if(c=="")
+{
+document.getElementById("num").innerHTML="**Enter Contact Number";
+return false;
+}
+if(isNaN(c))
+{
+document.getElementById("num").innerHTML="** Should only contain numbers";
+return false;
+}
+if(c.length!=10)
+{
+document.getElementById("num").innerHTML="** Contact Number should be of 10 digits";
+return false;
+}
+
+if((d=="")&&(f==""))
+{
+document.getElementById("gen").innerHTML="** Select any one";
+return false;
+}
+if(e=="--Select--")
+{
+document.getElementById("con").innerHTML="** Select any 1 country";
+return false;
+}
+if((g=="")&&(h=="")&&(i==""))
+{
+document.getElementById("edu").innerHTML="** Select education";
+return false;
+}
+}
+</script>
+<?php
+$conn=mysqli_connect("localhost","root","","user");
+
+if(isset($_REQUEST["submit"]))
+{
+$user=$_REQUEST["username"];
+$pass=$_REQUEST["password"];
+$gender=$_REQUEST["gender"];
+$country=$_REQUEST["country"];
+$education=$_REQUEST["education"];
+$b=implode(",",$education);
+mysqli_query($conn,"insert into admin(username,password,gender,country,education)values('$user','$pass','$gender','$country','$b')");
+}
+?>
+<form  name="frm" onsubmit="return myfun()">
+
+Username:
+<input type="text" name="username" placeholder="Enter username" title="username" id="username" value="">
+<span id="message" style="color:red"></span>
+<br><br>
+<td  height="150px" width="200px">Password:</td><input type="password" name="password" placeholder="Enter password" title="password" id="password" value="">
+<span id="mess" style="color:red"></span><br><br>
+Contact Number:<input type="text" name="contactnumber" placeholder="Enter contact number" title="Contact Number" value="" id="number">
+<span id="num" style="color:red"></span><br><br>
+Gender:<input type="radio" value="Male" name="gender" id="male">Male
+<input type="radio" value="Female" name="gender" id="female">Female
+<span id="gen" style="color:red"></span><br><br>
+Country:
+<select name="country" id="country">
+<option value="--Select--">--Select--</option>
+<option value="India">India</option>
+<option value="Pakistan">Pakistan</option>
+<option value="Europe">Europe</option>
+S<option value="France">France</option>
+</select>
+<span id="con" style="color:red"></span>
+<br><br>
+Education:
+<input type="checkbox" name="education[]" value="B.tech" id="B.tech" value="B.tech">B.tech
+<input type="checkbox" name="education[]" value="Diploma" id="Diploma" value="Diploma">Diploma
+<input type="checkbox" name="education[]" value="MBA" id="MBA" value="MBA">MBA
+<span id="edu" style="color:red"></span>
+
+<br><br>
+<input type="submit" name="submit" value="submit" style="width:100px; height:40px; opacity:0.7; border-radius:10px;">
+</form>
+</body>
+</html>
