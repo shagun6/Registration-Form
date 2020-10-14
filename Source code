@@ -2,7 +2,7 @@
 <head>
 <title>Forms</title>
 </head>
-<body bgcolor="yellow">
+<body bgcolor="green">
 <h1 style="text-align:center;"> Registration Form</h1>
 
 <script language="Javascript">
